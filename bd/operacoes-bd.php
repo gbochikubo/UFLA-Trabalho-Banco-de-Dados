@@ -1,5 +1,8 @@
 <?php
+    include("./repositorio.php");
+    
     $acao = $_GET['action'];
+    $repositorio = new Repositorio();
 
     switch ($acao) {
         case 'INSERT':
@@ -11,7 +14,7 @@
         
         case 'DELETE':
             break;
-            
+
         default:
             # code...
             break;
