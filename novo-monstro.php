@@ -29,7 +29,7 @@
                             <i class="fa fa-address-card-o"></i>
                         </span>
                     </div>
-                    <input id="nomeMonstro" name="nomeMonstro" class="form-control here" aria-describedby="nomeMonstroHelpBlock" required="required" type="text">
+                    <input id="nomeMonstro" name="nome" class="form-control here" aria-describedby="nomeMonstroHelpBlock" required="required" type="text">
                 </div>
                 <span id="nomeMonstroHelpBlock" class="form-text text-muted">Digite o nome completo de referência para o monstro</span>
             </div>
@@ -68,6 +68,18 @@
                 <input id="recompensa" name="recompensa" class="form-control here" aria-describedby="recompensaHelpBlock" required="required" type="text">
                 </div>
                 <span id="recompensaHelpBlock" class="form-text text-muted">Recompensa (em moedas) por abate do monstro</span>
+            </div>
+            <div class="form-group">
+                <label for="detalhes">Detalhes</label>
+                <div class="input-group">
+                <div class="input-group-prepend">
+                    <span class="input-group-text">
+                        <i class="fa fa-book"></i>
+                    </span>
+                </div>
+                <textarea id="detalhes" name="detalhes" class="form-control here" aria-describedby="detalhesHelpBlock" required="required" type="text"></textarea>
+                </div>
+                <span id="detalhesHelpBlock" class="form-text text-muted">Detalhes e história deste monstro específico. Texto livre.</span>
             </div>
             <div class="form-group">
                 <button name="submit" type="submit" class="btn btn-primary">Salvar Registro</button>

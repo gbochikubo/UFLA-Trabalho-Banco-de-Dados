@@ -6,25 +6,48 @@
         private $banco = "rpg";
 
         private function conectar() {
-            return new PDO('mysql:host='. $this->servidor . ';dbname=' . $this->banco, $this->usuario, $this->senha);
+            $conexao = new PDO('mysql:host='. $this->servidor . ';dbname=' . $this->banco, $this->usuario, $this->senha);
+            $conexao->setAttribute( PDO::ATTR_ERRMODE, PDO::ERRMODE_WARNING );
+            return $conexao;
         }
 
-        public function inserir($nome, $raridade, $level, $recompensa) {
+        public function inserir($nome, $raridade, $level, $recompensa, $detalhes) {
             $conexao = $this->conectar();
+            
             try {
-                $statement = $conexao->prepare("INSERT INTO Monstro VALUES (NULL, ?, ?, ?, ?)");
+                $statement = $conexao->prepare("INSERT INTO Monstro(nome, raridade, level, recompensa, detalhes) VALUES (?, ?, ?, ?, ?)");
                 $statement->bindParam(1, $nome);
                 $statement->bindParam(2, $raridade);
                 $statement->bindParam(3, $level);
                 $statement->bindParam(4, $recompensa);
-                $statement->execute();
+                $statement->bindParam(5, $detalhes);
 
-                $conexao = null;
-                return true;
+                if ($statement->execute()) {
+                    $conexao = null;
+                    return true;
+                } else {
+                    $conexao = null;
+                    return false;
+                }
             } catch (\Throwable $th) {
                 // caso algum erro aconteça na inserção...
                 $conexao = null;
                 return false;
+            }
+        }
+
+        public function buscarTodos() {
+            $conexao = $this->conectar();
+
+            try {
+                $statement = $conexao->prepare("SELECT * FROM Monstro");
+                $statement->execute();
+                
+                $conexao = null;
+                return $statement->fetchAll();
+            } catch (\Throwable $th) {
+                $conexao = null;
+                return array();
             }
         }
 
@@ -58,6 +81,12 @@
             }
 
             $conexao = $this->conectar();
+            $statement = $conexao->prepare("DELETE FROM Monstro WHERE idMonstro = ?");
+            $statement->bindParam(1, $codigo);
+            $resultado =  $statement->execute();
+            $conexao = null;
+
+            return $resultado;
         }
     }
 

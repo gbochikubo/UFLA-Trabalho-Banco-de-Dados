@@ -1,3 +1,8 @@
+<?php
+    include("bd/repositorio.php");
+    $repositorio = new Repositorio();
+    $monstros = $repositorio->buscarTodos();
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -17,45 +22,61 @@
             <p>Plataforma criada por Guilherme Melo, Guilherme Barbosa e Leonardo para disciplina de Banco de Dados, ministrada pelo professor Denilson</p>
         </div>
 
+        <?php if (isset($_GET["inseriu"])): ?>
+            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                <strong>Tudo certo!</strong> O monstro foi inserido com sucesso na base de dados.
+                <button onclick="AcaoFecharAlerta('inseriu')" type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+        <?php endif; ?>
+
         <div class="listagem">
-            <h1 class="titulo">
+            <h3 class="titulo">
                 <span>Listagem de monstros cadastrados</span>
                 <a class="btn btn-primary" href="novo-monstro.php" role="button">Novo monstro</a>
-            </h1>
+            </h3>
 
             <div class="tabela">
-                <table class="table table-hover">
-                    <thead class="thead-dark">
-                        <tr>
-                            <th scope="col">#</th>
-                            <th scope="col">Nome do monstro</th>
-                            <th scope="col">Raridade</th>
-                            <th scope="col">Level</th>
-                            <th scope="col">Recompensa (moedas)</th>
-                            <th scope="col">Ações</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <th scope="row">1</th>
-                            <td>Monstro 1 de teste</td>
-                            <td>23</td>
-                            <td>150</td>
-                            <td>30000</td>
-                            <td>
-                                <a href="excluir.php?codigo=ID" role="button" class="btn btn-danger btn-sm m-0">Excluir</a>
-                                <a href="editar.php?codigo=ID" role="button" class="btn btn-info btn-sm m-0">Editar</a>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-                <div class="footer">
-                    <h5>Quantidade de elementos: 13</h5>
-                </div>
+                <?php if (count($monstros)): ?>
+                    <table class="table table-hover">
+                        <thead class="thead-dark">
+                            <tr>
+                                <th scope="col">#</th>
+                                <th scope="col">Nome do monstro</th>
+                                <th scope="col">Raridade</th>
+                                <th scope="col">Level</th>
+                                <th scope="col">Recompensa (moedas)</th>
+                                <th scope="col">Ações</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <?php foreach ($monstros as $monstro) { ?>
+                                <tr>
+                                    <th scope="row"><?= $monstro["id_monstro"] ?></th>
+                                    <td><?= $monstro["nome"] ?></td>
+                                    <td><?= $monstro["raridade"] ?></td>
+                                    <td><?= $monstro["level"] ?></td>
+                                    <td><?= $monstro["recompensa"] ?></td>
+                                    <td>
+                                        <a href="excluir.php?codigo=<?= $monstro["id_monstro"] ?>" role="button" class="btn btn-danger btn-sm m-0">Excluir</a>
+                                        <a href="editar.php?codigo=<?= $monstro["id_monstro"] ?>" role="button" class="btn btn-info btn-sm m-0">Editar</a>
+                                    </td>
+                                </tr>
+                            <?php } ?>
+                        </tbody>
+                    </table>
+                    <div class="footer">
+                        <h5>Quantidade de elementos: 13</h5>
+                    </div>
+                <?php else: ?>
+                    <p>Não há elementos cadastrados.</p>
+                <?php endif ?>
             </div>
         </div>
     </main>
     <script src="js/jquery.min.js"></script>
     <script src="js/bootstrap.min.js"></script>
+    <script src="js/custom.js"></script>
 </body>
 </html>

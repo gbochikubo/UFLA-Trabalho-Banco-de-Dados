@@ -6,7 +6,21 @@
 
     switch ($acao) {
         case 'INSERT':
-            # code...
+            $nome = $_POST["nome"];
+            $level = $_POST["level"];
+            $raridade = $_POST["raridade"];
+            $recompensa = $_POST["recompensa"];
+            $detalhes = $_POST["detalhes"];
+
+            $parametros = "?inseriu=";
+            if ($repositorio->inserir($nome, $raridade, $level, $recompensa, $detalhes)) {
+                $parametros = $parametros . "true";
+            } else {
+                $parametros = $parametros . "false";
+            }
+            
+            header("Location: /index.php" . $parametros);
+            
             break;
         
         case 'UPDATE':
@@ -19,6 +33,8 @@
             # code...
             break;
     }
+
+    $repositorio = null;
 
 
 ?>
