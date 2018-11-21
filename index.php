@@ -31,6 +31,15 @@
             </div>
         <?php endif; ?>
 
+        <?php if (isset($_GET["excluiu"])): ?>
+            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                <strong>Tudo certo!</strong> O monstro foi excluído com sucesso na base de dados.
+                <button onclick="AcaoFecharAlerta('excluiu')" type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+        <?php endif; ?>
+
         <div class="listagem">
             <h3 class="titulo">
                 <span>Listagem de monstros cadastrados</span>
@@ -59,7 +68,7 @@
                                     <td><?= $monstro["level"] ?></td>
                                     <td><?= $monstro["recompensa"] ?></td>
                                     <td>
-                                        <a href="excluir.php?codigo=<?= $monstro["id_monstro"] ?>" role="button" class="btn btn-danger btn-sm m-0">Excluir</a>
+                                        <a href="bd/operacoes-bd.php?action=DELETE&codigo=<?= $monstro["id_monstro"] ?>" role="button" class="btn btn-danger btn-sm m-0">Excluir</a>
                                         <a href="editar.php?codigo=<?= $monstro["id_monstro"] ?>" role="button" class="btn btn-info btn-sm m-0">Editar</a>
                                     </td>
                                 </tr>

@@ -27,6 +27,17 @@
             break;
         
         case 'DELETE':
+            $codigo = $_GET["codigo"];
+
+            $parametros = "?excluiu=";
+            if ($repositorio->remover($codigo)) {
+                $parametros = $parametros . "true";
+            } else {
+                $parametros = $parametros . "false";
+            }
+
+            header("Location: /index.php" . $parametros);
+
             break;
 
         default:
