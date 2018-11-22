@@ -27,9 +27,12 @@
                     return true;
                 } else {
                     $conexao = null;
-                    return false;
+                    throw new PDOException($statement->errorInfo());
                 }
-            } catch (\Throwable $th) {
+            } catch (PDOException $err) {
+                // propaga o erro de PDO...
+                throw new PDOException($err);
+            } catch (Exception $th) {
                 // caso algum erro aconteça na inserção...
                 $conexao = null;
                 return false;
@@ -46,6 +49,24 @@
                 $conexao = null;
                 return $statement->fetchAll();
             } catch (\Throwable $th) {
+                $conexao = null;
+                return array();
+            }
+        }
+
+        public function buscar($codigo) {
+            $conexao = $this->conectar();
+
+            try {
+                $statement = $conexao->prepare("SELECT * FROM Monstro WHERE id_monstro = ?");
+                $statement->bindParam(1, $codigo);
+                $statement->execute();
+                if ($statement->rowCount()) {
+                    return $statement->fetch();
+                } else {
+                    return array();
+                }
+            } catch (\Throwable $td) {
                 $conexao = null;
                 return array();
             }
@@ -76,16 +97,12 @@
         }
 
         public function remover($codigo) {
-            if (!$this->existe($codigo)) {
-                return false;
-            }
-
             $conexao = $this->conectar();
-            $statement = $conexao->prepare("DELETE FROM Monstro WHERE idMonstro = ?");
+            $statement = $conexao->prepare("DELETE FROM Monstro WHERE id_monstro = ?");
             $statement->bindParam(1, $codigo);
             $resultado =  $statement->execute();
             $conexao = null;
-
+            print_r($statement->errorInfo());
             return $resultado;
         }
     }

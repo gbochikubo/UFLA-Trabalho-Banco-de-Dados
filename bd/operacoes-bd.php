@@ -12,13 +12,16 @@
             $recompensa = $_POST["recompensa"];
             $detalhes = $_POST["detalhes"];
 
-            $parametros = "?inseriu=";
-            if ($repositorio->inserir($nome, $raridade, $level, $recompensa, $detalhes)) {
+            $parametros = "?removeu=";
+
+            try {
+                $repositorio->inserir($nome, $raridade, $level, $recompensa, $detalhes);
                 $parametros = $parametros . "true";
-            } else {
+            } catch (PDOException $erro) {
                 $parametros = $parametros . "false";
+                $parametros = $parametros . "&erro=" . $erro->getMessage();
             }
-            
+
             header("Location: /index.php" . $parametros);
             
             break;

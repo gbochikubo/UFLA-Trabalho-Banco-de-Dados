@@ -1,5 +1,5 @@
 function AcaoFecharAlerta(atributo) {
-    removerParametroURL(atributo);
+    atributo.split().forEach(atributo => removerParametroURL(atributo));
 }
 
 function removerParametroURL(parameter){

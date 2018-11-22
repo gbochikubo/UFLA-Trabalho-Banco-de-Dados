@@ -1,10 +1,27 @@
+<?php 
+    if (!isset($_GET["codigo"])) {
+        header("Location: /index.php");
+    }
+
+    include("bd/repositorio.php");
+
+    $repo = new Repositorio();
+
+    $monstro = $repo->buscar(is_numeric($_GET["codigo"]) ? $_GET["codigo"] : ((int) $_GET["codigo"]));
+    if(count($monstro) == 0) {
+        header("Location: /index.php");
+    }
+
+    $repo = null;
+
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Cadastrar Monstro</title>
+    <title>Atualizar Monstro [<?= $monstro["nome"] ?>]</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="css/bootstrap.min.css">
     <link rel="stylesheet" href="css/custom.css">
@@ -12,7 +29,7 @@
 <body>
     <header>
         <div class="jumbotron">
-            <h1 class="display-4">Adicionar um novo Monstro</h1>
+            <h1 class="display-4">Modificar registro [<?= $monstro["nome"] ?>]</h1>
             <p class="lead">Preencha corretamente os campos abaixo para adicionar um novo monstro na plataforma.</p>
             <hr class="my-4">
             <p>Plataforma criada por Guilherme Melo, Guilherme Barbosa e Leonardo para disciplina de Banco de Dados, ministrada pelo professor Denilson</p>
@@ -26,10 +43,10 @@
                 <div class="input-group">
                     <div class="input-group-prepend">
                         <span class="input-group-text">
-                            <i class="fa fa-address-card-o"></i>
+                            <input type="checkbox" name="checkNome" id="checkNome" value="false">
                         </span>
                     </div>
-                    <input id="nomeMonstro" name="nome" class="form-control here" aria-describedby="nomeMonstroHelpBlock" required="required" type="text">
+                    <input id="nomeMonstro" value="<?= $monstro["nome"] ?>" name="nome" class="form-control here" aria-describedby="nomeMonstroHelpBlock" required="required" type="text">
                 </div>
                 <span id="nomeMonstroHelpBlock" class="form-text text-muted">Digite o nome completo de referência para o monstro</span>
             </div>
@@ -38,7 +55,7 @@
                 <div class="input-group">
                 <div class="input-group-prepend">
                     <span class="input-group-text">
-                        <i class="fa fa-hourglass-start"></i>
+                        <input type="checkbox" name="checkRaridade" id="checkRaridade" value="false">
                     </span>
                 </div>
                 <input id="raridade" name="raridade" aria-describedby="raridadeHelpBlock" class="form-control here" required="required" type="number">
@@ -50,7 +67,7 @@
                 <div class="input-group">
                 <div class="input-group-prepend">
                     <span class="input-group-text">
-                        <i class="fa fa-star-half-full"></i>
+                        <input type="checkbox" name="checkLevel" id="checkLevel" value="false">
                     </span>
                 </div>
                 <input id="level" name="level" class="form-control here" aria-describedby="levelHelpBlock" required="required" type="number">
@@ -62,7 +79,7 @@
                 <div class="input-group">
                 <div class="input-group-prepend">
                     <span class="input-group-text">
-                        <i class="fa fa-money"></i>
+                        <input type="checkbox" name="checkRecompensa" id="checkRecompensa" value="false">
                     </span>
                 </div>
                 <input id="recompensa" name="recompensa" class="form-control here" aria-describedby="recompensaHelpBlock" required="required" type="number">

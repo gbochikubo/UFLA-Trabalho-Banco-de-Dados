@@ -23,21 +23,39 @@
         </div>
 
         <?php if (isset($_GET["inseriu"])): ?>
-            <div class="alert alert-success alert-dismissible fade show" role="alert">
-                <strong>Tudo certo!</strong> O monstro foi inserido com sucesso na base de dados.
-                <button onclick="AcaoFecharAlerta('inseriu')" type="button" class="close" data-dismiss="alert" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
+            <?php if ($_GET["inseriu"] == "true"): ?>
+                <div class="alert alert-success alert-dismissible fade show" role="alert">
+                    <strong>Tudo certo!</strong> O monstro foi inserido com sucesso na base de dados.
+                    <button onclick="AcaoFecharAlerta('inseriu')" type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+            <?php else: ?>
+                <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                    <strong>Ops!</strong> O monstro não foi adicionado. O erro retornado foi: <?= $_GET["erro"] ?>.
+                    <button onclick="AcaoFecharAlerta('inseriu,erro')" type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+            <?php endif; ?>
         <?php endif; ?>
 
         <?php if (isset($_GET["excluiu"])): ?>
-            <div class="alert alert-success alert-dismissible fade show" role="alert">
-                <strong>Tudo certo!</strong> O monstro foi excluído com sucesso na base de dados.
-                <button onclick="AcaoFecharAlerta('excluiu')" type="button" class="close" data-dismiss="alert" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
+            <?php if ($_GET["excluiu"] == "true"): ?>
+                <div class="alert alert-success alert-dismissible fade show" role="alert">
+                    <strong>Tudo certo!</strong> O monstro foi excluído com sucesso na base de dados.
+                    <button onclick="AcaoFecharAlerta('inseriu')" type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+            <?php else: ?>
+                <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                    <strong>Ops!</strong> O monstro não foi excluído. O erro retornado foi: <?= $_GET["erro"] ?>.
+                    <button onclick="AcaoFecharAlerta('inseriu,erro')" type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+            <?php endif; ?>
         <?php endif; ?>
 
         <div class="listagem">
@@ -68,8 +86,8 @@
                                     <td><?= $monstro["level"] ?></td>
                                     <td><?= $monstro["recompensa"] ?></td>
                                     <td>
-                                        <a href="bd/operacoes-bd.php?action=DELETE&codigo=<?= $monstro["id_monstro"] ?>" role="button" class="btn btn-danger btn-sm m-0">Excluir</a>
-                                        <a href="editar.php?codigo=<?= $monstro["id_monstro"] ?>" role="button" class="btn btn-info btn-sm m-0">Editar</a>
+                                        <a href="bd/operacoes-bd.php?action=DELETE&codigo=<?= $monstro["id_monstro"] ?>" role="button" class="btn btn-danger btn-sm ">Excluir</a>
+                                        <a href="atualizar-monstro.php?codigo=<?= $monstro["id_monstro"] ?>" role="button" class="btn btn-warning btn-sm ">Editar</a>
                                     </td>
                                 </tr>
                             <?php } ?>
