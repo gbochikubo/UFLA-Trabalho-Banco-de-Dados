@@ -11,6 +11,28 @@
             return $conexao;
         }
 
+        public function atualizar($codigo, $dados) {
+            if (count($dados) == 0) {
+                return true;
+            }
+
+            $sql = "UPDATE Monstro SET ";
+            $qtdChaves = count($dados);
+            $atual = 0;
+            foreach ($dados as $chave => $valor) {
+                $sql = $sql . $chave . "=?";
+                if ($atual != ($qtdChaves - 1)) {
+                    $sql = $sql . ", ";
+                }
+            }
+
+            $statement = $conexao->prepare($sql);
+            foreach($dados as $chave => $valor) {
+                $statement->bindParam($chave, $valor);
+            }
+            
+        }
+
         public function inserir($nome, $raridade, $level, $recompensa, $detalhes) {
             $conexao = $this->conectar();
             

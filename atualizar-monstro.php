@@ -37,16 +37,16 @@
     </header>
 
     <main>
-        <form method="POST" action="bd/operacoes-bd.php?action=INSERT">
+        <form method="POST" action="bd/operacoes-bd.php?action=UPDATE">
             <div class="form-group">
                 <label for="nomeMonstro">Nome do monstro</label>
                 <div class="input-group">
                     <div class="input-group-prepend">
                         <span class="input-group-text">
-                            <input type="checkbox" name="checkNome" id="checkNome" value="false">
+                            <input data-destino="nomeMonstro" type="checkbox" name="checkNome" id="checkNome" >
                         </span>
                     </div>
-                    <input id="nomeMonstro" value="<?= $monstro["nome"] ?>" name="nome" class="form-control here" aria-describedby="nomeMonstroHelpBlock" required="required" type="text">
+                    <input readonly id="nomeMonstro" value="<?= $monstro["nome"] ?>" name="nome" class="form-control here" aria-describedby="nomeMonstroHelpBlock" required="required" type="text">
                 </div>
                 <span id="nomeMonstroHelpBlock" class="form-text text-muted">Digite o nome completo de referência para o monstro</span>
             </div>
@@ -55,10 +55,10 @@
                 <div class="input-group">
                 <div class="input-group-prepend">
                     <span class="input-group-text">
-                        <input type="checkbox" name="checkRaridade" id="checkRaridade" value="false">
+                        <input data-destino="raridade" type="checkbox" name="checkRaridade" id="checkRaridade">
                     </span>
                 </div>
-                <input id="raridade" name="raridade" aria-describedby="raridadeHelpBlock" class="form-control here" required="required" type="number">
+                <input readonly value="<?= $monstro["raridade"] ?>" id="raridade" name="raridade" aria-describedby="raridadeHelpBlock" class="form-control here" required="required" type="number">
                 </div>
                 <span id="raridadeHelpBlock" class="form-text text-muted">Raridade de aparecimento deste monstro</span>
             </div>
@@ -67,10 +67,10 @@
                 <div class="input-group">
                 <div class="input-group-prepend">
                     <span class="input-group-text">
-                        <input type="checkbox" name="checkLevel" id="checkLevel" value="false">
+                        <input data-destino="level" type="checkbox" name="checkLevel" id="checkLevel">
                     </span>
                 </div>
-                <input id="level" name="level" class="form-control here" aria-describedby="levelHelpBlock" required="required" type="number">
+                <input readonly value="<?= $monstro["level"] ?>" id="level" name="level" class="form-control here" aria-describedby="levelHelpBlock" required="required" type="number">
                 </div>
                 <span id="levelHelpBlock" class="form-text text-muted">Level de dificuldade em abate do monstro</span>
             </div>
@@ -79,10 +79,10 @@
                 <div class="input-group">
                 <div class="input-group-prepend">
                     <span class="input-group-text">
-                        <input type="checkbox" name="checkRecompensa" id="checkRecompensa" value="false">
+                        <input data-destino="recompensa" type="checkbox" name="checkRecompensa" id="checkRecompensa">
                     </span>
                 </div>
-                <input id="recompensa" name="recompensa" class="form-control here" aria-describedby="recompensaHelpBlock" required="required" type="number">
+                <input readonly value="<?= $monstro["recompensa"] ?>" id="recompensa" name="recompensa" class="form-control here" aria-describedby="recompensaHelpBlock" required="required" type="number">
                 </div>
                 <span id="recompensaHelpBlock" class="form-text text-muted">Recompensa (em moedas) por abate do monstro</span>
             </div>
@@ -91,10 +91,10 @@
                 <div class="input-group">
                 <div class="input-group-prepend">
                     <span class="input-group-text">
-                        <i class="fa fa-book"></i>
+                        <input data-destino="detalhes" type="checkbox" name="checkDetalhes" id="checkDetalhes">
                     </span>
                 </div>
-                <textarea id="detalhes" name="detalhes" class="form-control here" aria-describedby="detalhesHelpBlock" required="required" type="number"></textarea>
+                <textarea readonly id="detalhes" name="detalhes" class="form-control here" aria-describedby="detalhesHelpBlock" required="required" type="number"><?= $monstro["detalhes"] ?></textarea>
                 </div>
                 <span id="detalhesHelpBlock" class="form-text text-muted">Detalhes e história deste monstro específico. Texto livre.</span>
             </div>
@@ -105,5 +105,6 @@
     </main>
     <script src="js/jquery.min.js"></script>
     <script src="js/bootstrap.min.js"></script>
+    <script src="js/atualizar-monstro.js"></script>
 </body>
 </html>

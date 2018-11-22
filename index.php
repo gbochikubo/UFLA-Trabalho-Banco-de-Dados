@@ -44,14 +44,14 @@
             <?php if ($_GET["excluiu"] == "true"): ?>
                 <div class="alert alert-success alert-dismissible fade show" role="alert">
                     <strong>Tudo certo!</strong> O monstro foi excluído com sucesso na base de dados.
-                    <button onclick="AcaoFecharAlerta('inseriu')" type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <button onclick="AcaoFecharAlerta('excluiu')" type="button" class="close" data-dismiss="alert" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
             <?php else: ?>
                 <div class="alert alert-danger alert-dismissible fade show" role="alert">
                     <strong>Ops!</strong> O monstro não foi excluído. O erro retornado foi: <?= $_GET["erro"] ?>.
-                    <button onclick="AcaoFecharAlerta('inseriu,erro')" type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <button onclick="AcaoFecharAlerta('excluiu,erro')" type="button" class="close" data-dismiss="alert" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
@@ -94,7 +94,7 @@
                         </tbody>
                     </table>
                     <div class="footer">
-                        <h5>Quantidade de elementos: 13</h5>
+                        <h5>Quantidade de elementos: <?= count($monstros) ?> </h5>
                     </div>
                 <?php else: ?>
                     <p>Não há elementos cadastrados.</p>
@@ -104,6 +104,6 @@
     </main>
     <script src="js/jquery.min.js"></script>
     <script src="js/bootstrap.min.js"></script>
-    <script src="js/custom.js"></script>
+    <script src="js/index.js"></script>
 </body>
 </html>

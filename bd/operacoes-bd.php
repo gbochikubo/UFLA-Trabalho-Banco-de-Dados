@@ -27,6 +27,37 @@
             break;
         
         case 'UPDATE':
+            $dados = array();
+
+            if ($_POST["checkNome"] == "true") {
+                $dados["nome"] = $_POST["nome"];
+            }
+
+            if ($_POST["checkLevel"] == "true") {
+                $dados["level"] = $_POST["level"];
+            } 
+
+            if ($_POST["checkDetalhes"] == "true") {
+                $dados["detalhes"] = $_POST["detalhes"];
+            }
+
+            if ($_POST["checkRecompensa"] == "true") {
+                $dados["recompensa"] = $_POST["recompensa"];
+            }
+
+            if ($_POST["checkRaridade"] == "true") {
+                $dados["raridade"] = $_POST["raridade"];
+            }
+            
+            $parametros = "?alterou=";
+            if ($repositorio->atualizar($_POST["codigo"], $dados)) {
+                $parametros = $parametros . "true";
+            } else {
+                $parametros = $parametros . "false";
+            }
+
+            header("Location: /index.php" . $parametros);
+
             break;
         
         case 'DELETE':
