@@ -29,28 +29,28 @@
         case 'UPDATE':
             $dados = array();
 
-            if ($_POST["checkNome"] == "true") {
+            if (isset($_POST["checkNome"]) && $_POST["checkNome"] == "on") {
                 $dados["nome"] = $_POST["nome"];
             }
 
-            if ($_POST["checkLevel"] == "true") {
+            if (isset($_POST["checkLevel"]) && $_POST["checkLevel"] == "on") {
                 $dados["level"] = $_POST["level"];
             } 
 
-            if ($_POST["checkDetalhes"] == "true") {
+            if (isset($_POST["checkDetalhes"]) && $_POST["checkDetalhes"] == "on") {
                 $dados["detalhes"] = $_POST["detalhes"];
             }
 
-            if ($_POST["checkRecompensa"] == "true") {
+            if (isset($_POST["checkRecompensa"]) && $_POST["checkRecompensa"] == "on") {
                 $dados["recompensa"] = $_POST["recompensa"];
             }
 
-            if ($_POST["checkRaridade"] == "true") {
+            if (isset($_POST["checkRaridade"]) && $_POST["checkRaridade"] == "on") {
                 $dados["raridade"] = $_POST["raridade"];
             }
-            
+
             $parametros = "?alterou=";
-            if ($repositorio->atualizar($_POST["codigo"], $dados)) {
+            if ($repositorio->atualizar($_GET["codigo"], $dados)) {
                 $parametros = $parametros . "true";
             } else {
                 $parametros = $parametros . "false";

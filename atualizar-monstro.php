@@ -37,7 +37,7 @@
     </header>
 
     <main>
-        <form method="POST" action="bd/operacoes-bd.php?action=UPDATE">
+        <form method="POST" action="bd/operacoes-bd.php?action=UPDATE&codigo=<?= $monstro["id_monstro"] ?>">
             <div class="form-group">
                 <label for="nomeMonstro">Nome do monstro</label>
                 <div class="input-group">

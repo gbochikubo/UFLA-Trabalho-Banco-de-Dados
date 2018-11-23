@@ -11,7 +11,7 @@
             return $conexao;
         }
 
-        public function atualizar($codigo, $dados) {
+        public function atualizar($codigo, &$dados) {
             if (count($dados) == 0) {
                 return true;
             }
@@ -20,17 +20,29 @@
             $qtdChaves = count($dados);
             $atual = 0;
             foreach ($dados as $chave => $valor) {
-                $sql = $sql . $chave . "=?";
+                $sql = $sql . $chave . "= :" . $chave;
                 if ($atual != ($qtdChaves - 1)) {
                     $sql = $sql . ", ";
                 }
+                $atual = $atual + 1;
+            }
+            $sql = $sql . " WHERE id_monstro = " . $codigo;
+            
+            $conexao = $this->conectar();
+            $statement = $conexao->prepare($sql);
+            
+            foreach($dados as $chave => $valor) {
+                $statement->bindValue(":" . $chave,  $valor);
             }
 
-            $statement = $conexao->prepare($sql);
-            foreach($dados as $chave => $valor) {
-                $statement->bindParam($chave, $valor);
+            if ($statement->execute()) {
+                $conexao = null;
+                return true;
+            } else {
+                $conexao = null;
+                return false;
             }
-            
+
         }
 
         public function inserir($nome, $raridade, $level, $recompensa, $detalhes) {
